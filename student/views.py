@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Student
 from .forms import StudentForm
@@ -34,9 +34,10 @@ def student_page(request):
                 "number": form.cleaned_data.get("number"),
                 "profile_pic": form.cleaned_data.get("profile_image")
             }
-            # Student.objects.create(**student_data)
+            #? Student.objects.create(**student_data) 👇
             student = Student(**student_data)
             student.save()
+            return redirect('index')
     context = {
         'form': form
     }
